@@ -61,6 +61,76 @@ End
 Completion of the DES process![image](https://github.com/user-attachments/assets/bd4231f0-1c10-4b10-9737-835ad4d0b298)
 
 
+## Example:
+
+                         +-------------------------+
+                         |      Start Program      |
+                         +-----------+-------------+
+                                     |
+                                     v
+                    +-------------------------------+
+                    |  Input: 10-bit Key = 1010000010 |
+                    +-------------------------------+
+                                     |
+                                     v
+                        +-----------------------+
+                        |   Key Generation      |
+                        |  Key1 = 10100100       |
+                        |  Key2 = 01000011       |
+                        +-----------+-----------+
+                                    |
+               +--------------------+----------------------+
+               |                                           |
+               v                                           v
+      +---------------------+                     +----------------------+
+      |  Plaintext Input     |                     | Ciphertext Input     |
+      |   = 11010111         |                     |   = 01101111         |
+      +----------+----------+                     +----------+-----------+
+                 |                                           |
+                 v                                           v
+     +---------------------------+               +----------------------------+
+     |  Initial Permutation (IP) |               |  Initial Permutation (IP)  |
+     +-----------+---------------+               +-------------+--------------+
+                 |                                           |
+                 v                                           v
+     +---------------------------+               +-----------------------------+
+     | Round 1 with Key2 = 01000011 |             | Round 1 with Key1 = 10100100 |
+     | - Expand & Permute (E/P)   |              | - Expand & Permute (E/P)   |
+     | - XOR with Key             |              | - XOR with Key             |
+     | - S-boxes S0 and S1        |              | - S-boxes S0 and S1        |
+     | - P4 Permutation           |              | - P4 Permutation           |
+     | - XOR with Left 4 bits     |              | - XOR with Left 4 bits     |
+     +-----------+---------------+               +-------------+--------------+
+                 |                                           |
+                 v                                           v
+        +----------------------+                  +----------------------+
+        |     SWAP Halves      |                  |     SWAP Halves      |
+        +----------+-----------+                  +----------+-----------+
+                   |                                          |
+                   v                                          v
+     +---------------------------+               +-----------------------------+
+     | Round 2 with Key1 = 10100100|             | Round 2 with Key2 = 01000011 |
+     | - Expand & Permute (E/P)   |              | - Expand & Permute (E/P)    |
+     | - XOR with Key             |              | - XOR with Key              |
+     | - S-boxes S0 and S1        |              | - S-boxes S0 and S1         |
+     | - P4 Permutation           |              | - P4 Permutation            |
+     | - XOR with Left 4 bits     |              | - XOR with Left 4 bits      |
+     +-----------+---------------+               +-------------+--------------+
+                 |                                           |
+                 v                                           v
+     +---------------------------+               +---------------------------+
+     | Final Permutation (IP⁻¹)  |               | Final Permutation (IP⁻¹)  |
+     +-----------+---------------+               +------------+--------------+
+                 |                                           |
+                 v                                           v
+     +---------------------------+               +---------------------------+
+     |  Output: Ciphertext =     |               | Output: Recovered         |
+     |         01101111          |               |         Plaintext =       |
+     |                           |               |         11010111          |
+     +---------------------------+               +---------------------------+
+
+
+
 
 ##  How to Run
 
